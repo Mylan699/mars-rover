@@ -8,3 +8,5 @@ public enum Direction
     West
     
 }
+
+//test rapidité
