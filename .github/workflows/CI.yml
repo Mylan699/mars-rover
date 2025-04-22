@@ -27,15 +27,6 @@ jobs:
             echo "contains_emoji=false" >> $GITHUB_OUTPUT
             exit 1
           fi
-          
-          if echo "$COMMIT_MESSAGE" | grep -iqE "(fix|hotfix)"; then
-            echo "✅ Commit message contains 'fix' or 'hotfix', bypassing emoji check."
-          elif echo "$COMMIT_MESSAGE" | grep -qE "(🚀|🪐|🌍|🌟|🌌|👨‍🚀|👩‍🚀)"; then
-            echo "✅ Commit message contains a space emoji!"
-          else
-            echo "🚨 Commit rejected: must contain a space emoji (🚀, 🪐, 🌍, 🌟, 🌌, 👨‍🚀, 👩‍🚀) or 'fix'/'hotfix'."
-            exit 1
-          fi
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
