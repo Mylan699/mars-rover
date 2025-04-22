@@ -13,3 +13,4 @@ public enum Direction
 //test emoji espace
 //test sans emoji espace
 //test sans emoji espace 2.0
+//test sans emoji espace 3.0
