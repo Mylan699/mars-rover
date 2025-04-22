@@ -16,13 +16,13 @@ jobs:
       - name: Check for space emoji
         id: check_emoji
         run: |
-          if [[ "${{ steps.get_commit_message.outputs.commit_msg }}" =~ (🚀|👽|🪐) ]]; then
-            echo "Le message de commit contient un emoji spatial! ✓"
-            echo "contains_emoji=true" >> $GITHUB_OUTPUT
+          if [[ "${{ steps.get_commit_message.outputs.commit_msg }}" =~ (🚀|🪐|🌍|🌟|🌌|👨‍🚀|👩‍🚀) ]]; then
+             echo "Le message de commit contient un emoji spatial! ✓"
+             echo "contains_emoji=true" >> $GITHUB_OUTPUT
           else
-            echo "❌ Le message de commit ne contient pas d'emoji spatial requis (🚀, 👽 ou 🪐)"
-            echo "contains_emoji=false" >> $GITHUB_OUTPUT
-            exit 1
+             echo "❌ Le message de commit ne contient pas d'emoji spatial requis (🚀, 🪐, 🌍, 🌟, 🌌, 👨‍🚀 ou 👩‍🚀)"
+             echo "contains_emoji=false" >> $GITHUB_OUTPUT
+             exit 1
           fi
 
       - name: Setup .NET
