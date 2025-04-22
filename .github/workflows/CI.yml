@@ -3,6 +3,8 @@ name: test .net
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   test:
@@ -11,13 +13,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Verify Commit Message Contains Space Emoji
+        run: |
+          commit_message=$(git log -1 --pretty=%B)
+          echo "Commit message: $commit_message"
+          if [[ "$commit_message" =~ (🚀|🪐|🌍|🌟|🌌|👨‍🚀|👩‍🚀) ]]; then
+            echo "✅ Commit message contains a space emoji!"
+          else
+            echo "🚨 Commit rejected: please include a space emoji like 🚀, 🪐, 🌍, 🌟, 🌌, 👨‍🚀, or 👩‍🚀."
+            exit 1
+          fi
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
           dotnet-version: 7.0.x
-          cache : true
+          cache: true
           cache-dependency-path: "./CSharp xUnit starter/packages.lock.json"
-        
 
       - name: Restore dependencies
         run: dotnet restore
