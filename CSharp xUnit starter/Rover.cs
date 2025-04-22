@@ -29,6 +29,7 @@ public class Rover
     {
         return Coordinates.Direction switch
         {
+            Direction.North => new Rover(Coordinates.YAntiTranslate()),
             Direction.South => new Rover(Coordinates.YTranslate()),
             Direction.West => new Rover(Coordinates.XTranslate()),
             Direction.East => new Rover(Coordinates.XAntiTranslate()),
