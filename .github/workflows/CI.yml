@@ -17,11 +17,23 @@ jobs:
         id: check_emoji
         run: |
           if [[ "${{ steps.get_commit_message.outputs.commit_msg }}" =~ (🚀|🪐|🌍|🌟|🌌|👨‍🚀|👩‍🚀) ]]; then
-            echo "Le message de commit contient un emoji spatial! ✓"
+            echo "✅ Le message de commit contient un emoji spatial! ✓"
+            echo "contains_emoji=true" >> $GITHUB_OUTPUT
+          elif [[ "${{ steps.get_commit_message.outputs.commit_msg }}" =~ (fix|hotfix) ]]; then
+            echo "✅ Commit message contains 'fix' or 'hotfix', bypassing emoji check."
             echo "contains_emoji=true" >> $GITHUB_OUTPUT
           else
             echo "❌ Le message de commit ne contient pas d'emoji spatial requis (🚀, 🪐, 🌍, 🌟, 🌌, 👨‍🚀 ou 👩‍🚀)"
             echo "contains_emoji=false" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          
+          if echo "$COMMIT_MESSAGE" | grep -iqE "(fix|hotfix)"; then
+            echo "✅ Commit message contains 'fix' or 'hotfix', bypassing emoji check."
+          elif echo "$COMMIT_MESSAGE" | grep -qE "(🚀|🪐|🌍|🌟|🌌|👨‍🚀|👩‍🚀)"; then
+            echo "✅ Commit message contains a space emoji!"
+          else
+            echo "🚨 Commit rejected: must contain a space emoji (🚀, 🪐, 🌍, 🌟, 🌌, 👨‍🚀, 👩‍🚀) or 'fix'/'hotfix'."
             exit 1
           fi
 
