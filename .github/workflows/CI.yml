@@ -12,17 +12,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # 🔥 Cloner tout l'historique pour lire les bons commits
-
-      - name: Verify Commit Message Contains Space Emoji
+          
+      - name: Check for space emoji
+        id: check_emoji
         run: |
-          commit_message=$(git show -s --format=%B $GITHUB_SHA)
-          echo "Commit message: $commit_message"
-          if [[ "$commit_message" =~ (🚀|🪐|🌍|🌟|🌌|👨‍🚀|👩‍🚀) ]]; then
-            echo "✅ Message de commit continent bien des emoji!"
+          if [[ "${{ steps.get_commit_message.outputs.commit_msg }}" =~ (🚀|🪐|🌍|🌟|🌌|👨‍🚀|👩‍🚀) ]]; then
+            echo "Le message de commit contient un emoji spatial! ✓"
+            echo "contains_emoji=true" >> $GITHUB_OUTPUT
           else
-            echo "🚨 Commit refusé: Mettre des emojis de l'espace parmis 🚀, 🪐, 🌍, 🌟, 🌌, 👨‍🚀, or 👩‍🚀."
+            echo "❌ Le message de commit ne contient pas d'emoji spatial requis (🚀, 🪐, 🌍, 🌟, 🌌, 👨‍🚀 ou 👩‍🚀)"
+            echo "contains_emoji=false" >> $GITHUB_OUTPUT
             exit 1
           fi
 
