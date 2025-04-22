@@ -47,5 +47,3 @@ public class Rover
         return new Rover(Coordinates.Rotate());
     }
 }
-
-//test

@@ -9,3 +9,7 @@ public enum Direction
     
 }
 
+//test rapidité
+//test emoji espace
+//test sans emoji espace
+
