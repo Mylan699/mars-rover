@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercice Docker</title>
+    <style>
+        :root {
+            --docker-blue: #0DB7ED;
+            --docker-dark-blue: #099bc7;
+            --docker-navy: #384D54;
+            --docker-light-gray: #f5f7f9;
+            --docker-mid-gray: #e9ecef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: var(--docker-light-gray);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: var(--docker-navy);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: var(--docker-dark-blue);
+            margin: 25px 0 15px;
+        }
+
+        .step {
+            background: var(--docker-light-gray);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border-left: 4px solid var(--docker-blue);
+        }
+
+        code {
+            background: var(--docker-mid-gray);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        pre {
+            background: var(--docker-navy);
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+
+        pre code {
+            background: transparent;
+            color: white;
+            padding: 0;
+        }
+
+        .commands {
+            list-style: none;
+        }
+
+        .commands li {
+            margin: 10px 0;
+            padding: 10px;
+            border-bottom: 1px solid var(--docker-mid-gray);
+        }
+
+        .commands code {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Exercice Docker</h1>
+
+    <section>
+        <h2>Introduction</h2>
+        <p>Docker est une plateforme permettant de développer, distribuer et exécuter des applications dans des conteneurs. Cet exercice vous aidera à créer et exécuter votre premier conteneur Docker.</p>
+    </section>
+
+    <section>
+        <h2>Étapes de l'exercice</h2>
+
+        <div class="step">
+            <h3>1. Créer un Dockerfile</h3>
+            <p>Créez un fichier nommé <code>Dockerfile</code> avec le contenu suivant :</p>
+            <pre><code>FROM nginx:alpine
+COPY index.html /usr/share/nginx/html/
+EXPOSE 80</code></pre>
+        </div>
+
+        <div class="step">
+            <h3>2. Créer index.html</h3>
+            <p>Créez un fichier nommé <code>index.html</code> avec ce contenu :</p>
+            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Test Docker&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Bonjour depuis Docker !&lt;/h1&gt;
+    &lt;p&gt;Si vous voyez ceci, votre conteneur Docker fonctionne.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        </div>
+
+        <div class="step">
+            <h3>3. Construire l'image Docker</h3>
+            <p>Exécutez cette commande pour construire votre image Docker :</p>
+            <pre><code>docker build -t mon-app-docker .</code></pre>
+        </div>
+
+        <div class="step">
+            <h3>4. Lancer le conteneur</h3>
+            <p>Démarrez votre conteneur avec :</p>
+            <pre><code>docker run -d -p 8080:80 mon-app-docker</code></pre>
+            <p>Accédez à votre application sur <code>http://localhost:8080</code></p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Commandes Docker Essentielles</h2>
+        <ul class="commands">
+            <li>
+                <code>docker images</code>
+                Lister toutes les images Docker
+            </li>
+            <li>
+                <code>docker ps</code>
+                Lister les conteneurs en cours d'exécution
+            </li>
+            <li>
+                <code>docker stop [id-conteneur]</code>
+                Arrêter un conteneur en cours d'exécution
+            </li>
+            <li>
+                <code>docker rm [id-conteneur]</code>
+                Supprimer un conteneur
+            </li>
+            <li>
+                <code>docker rmi [id-image]</code>
+                Supprimer une image
+            </li>
+        </ul>
+    </section>
+</div>
+</body>
+</html>
